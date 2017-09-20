@@ -68,7 +68,7 @@ module.exports.isSignedIn = (req, res, next) => {
                 next();
             } else {
                 res.status(401);
-                if (authErr.name === EXPIRED_TOKEN_ERROR_NAME) {
+                if (authErr && authErr.name === EXPIRED_TOKEN_ERROR_NAME) {
                     return res.json({expired: true});
                 } else {
                     return res.end();
