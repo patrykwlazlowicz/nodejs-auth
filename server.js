@@ -30,28 +30,29 @@ app.use(auth.init());
 
 // API ROUTES
 
-app.all('*', function (req, res) {
-    console.log(path.join(__dirname, './views/index.html'));
-    return res.sendFile(path.join(__dirname, './views/index.html'));
-});
-
 app.post('/signin', auth.isSignedOut, (req, res, next) => {
-    auth.signInViaMail(req, res, next, (err, username) => {
+    auth.signInViaMail(req, res, next, (err, username, token) => {
         if (err) {
             console.log(util.inspect(err));
             return res.status(400).json(err);
         } else {
-            return res.status(200).json({username: username, token: generateToken()});
+            return res.status(200).json({username: username, token: token});
         }
     });
 });
 
-app.post('keepsession', auth.isSignedIn, (req, res) => {
+app.post('/keepsession', auth.isSignedIn, (req, res) => {
     res.json({username: req.user.username});
 });
 
+// TODO CMD + SHIFT + R
 app.get('/profile', auth.isSignedIn, (req, res) => {
     res.json({realName: req.user.realName});
+});
+
+app.all('*', function (req, res) {
+    console.log(path.join(__dirname, './views/index.html'));
+    return res.sendFile(path.join(__dirname, './views/index.html'));
 });
 
 // CREATE SERVER

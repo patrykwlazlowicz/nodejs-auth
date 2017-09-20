@@ -24,14 +24,16 @@ angularModule.config(['$locationProvider', '$routeProvider', '$httpProvider',
                     return config;
                 },
                 response: function (response) {
-                    if (response.headers('X-Access-Token')) {
-                        localStorage.setItem('auth-token', response.headers('X-Access-Token'));
+                    const token = response.headers('X-Access-Token');
+                    if (token) {
+                        localStorage.setItem('auth-token', token);
+                        $rootScope.token = token;
                     }
                     return response;
                 },
                 responseError: function (res) {
                     if (res.status === 401) {
-                        $location.url('/signin');
+                        $location.url('/401');
                     }
                     return $q.reject(res);
                 }
@@ -43,28 +45,32 @@ angularModule.run(['$rootScope', '$http',
     function ($rootScope, $http) {
         if (localStorage.getItem('auth-token') && !$rootScope.username) {
             return $http.post('/keepsession', {}).then((res) => {
-                $rootScope.username = res.data.user;
+                $rootScope.username = res.data.username;
             }, () => {
                 localStorage.removeItem('auth-token');
             });
         }
     }
 ]);
-angularModule.controller('userController', ['$rootScope', '$scope',
-    function ($rootScope, $scope) {
-        $scope.signIn = function (valid) {
+angularModule.controller('userController', ['$rootScope', '$scope', '$http', '$location',
+    function ($rootScope, $scope, $http, $location) {
+        $scope.signin = function (valid) {
             if (!valid) {
                 $scope.formError = true;
             } else {
                 $scope.formError = false;
                 $http.post('/signin', {
-                    email: $scope.form.email,
+                    login: $scope.form.login,
                     password: $scope.form.password
                 }).then((res) => {
-                    localStorage.setItem('auth-token', res.data.token);
-                    $rootScope.username = res.data.username;
+                    if (res.data.token && res.data.username) {
+                        localStorage.setItem('auth-token', res.data.token);
+                        $rootScope.username = res.data.username;
+                        $rootScope.token = res.data.token;
+                        $location.path('/');
+                    }
                 }, () => {
-                    $scope.signinForm.email = '';
+                    $scope.signinForm.login = '';
                     $scope.signinForm.password = '';
                     $scope.formError = true;
                 });
@@ -74,7 +80,7 @@ angularModule.controller('userController', ['$rootScope', '$scope',
 ]);
 angularModule.controller('profileController', ['$scope', '$http',
     function ($scope, $http) {
-        return $http.post('/profile', {}).then((res) => {
+        $http.get('/profile', {}).then((res) => {
             $scope.realName = res.data.realName;
         });
     }

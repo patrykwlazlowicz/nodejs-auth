@@ -83,24 +83,11 @@ function generateToken() {
     });
 }
 
-// CREATE SESSION AUTH
-
-function createSessionStrategy() {
-    passport.use(SESSION_VIA_MAIL_STRATEGY, new JwtStrategy({
-            secretOrKey: SERVER_SECRET_KEY,
-            jwtFromRequest: jwtExtractor.fromAuthHeaderAsBearerToken()
-        },
-        (payload, done) => {
-            done(null, payload.user);
-        }
-    ));
-}
-
 // CREATE LOGIN AUTH
 
 function createSignInStrategy() {
     passport.use(SIGNIN_VIA_MAIL_STRATEGY, new LocalStrategy({
-            usernameField: 'email',
+            usernameField: 'login',
             passwordField: 'password'
         },
         (username, password, done) => {
@@ -109,6 +96,20 @@ function createSignInStrategy() {
             } else {
                 done(new Error('401'));
             }
+        }
+    ));
+}
+
+// CREATE SESSION AUTH
+
+function createSessionStrategy() {
+    passport.use(SESSION_VIA_MAIL_STRATEGY, new JwtStrategy({
+            secretOrKey: SERVER_SECRET_KEY,
+            jwtFromRequest: jwtExtractor.fromAuthHeaderAsBearerToken(),
+            passReqToCallback: true
+        },
+        (payload, done) => {
+            done(null, payload);
         }
     ));
 }
