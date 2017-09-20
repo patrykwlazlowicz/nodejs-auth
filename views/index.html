@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Node auth</title>
+    <link rel="stylesheet" href="https://bootswatch.com/paper/bootstrap.min.css"/>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"/>
+    <script src="./javascript/app.js"></script>
+</head>
+<body>
+
+<div class="container">
+
+    <div class="row">
+        <div ng-view class="view-animate"></div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <a href="/signin" class="btn btn-default"><span class="fa fa-user"></span> Home</a>
+        </div>
+        <div class="row">
+            <a href="/profile" class="btn btn-default"><span class="fa fa-gear"></span> Local Profile</a>
+        </div>
+    </div>
+
+    <p id="user">{{currentUser}}</p>
+    <p id="token">{{token}}</p>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,31 @@
+{
+  "name": "nodejs-auth",
+  "version": "1.0.0",
+  "description": "Example of node authentification using passport library",
+  "main": "app.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/patrykwlazlowicz/nodejs-auth.git"
+  },
+  "author": "heyhey",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/patrykwlazlowicz/nodejs-auth/issues"
+  },
+  "homepage": "https://github.com/patrykwlazlowicz/nodejs-auth#readme",
+  "dependencies": {
+    "async": "^2.5.0",
+    "body-parser": "^1.18.1",
+    "express": "^4.15.4",
+    "jsonwebtoken": "^8.0.1",
+    "morgan": "^1.8.2",
+    "passport": "^0.4.0",
+    "passport-jwt": "^3.0.0",
+    "passport-local": "^1.0.0",
+    "path": "^0.12.7",
+    "serve-static": "^1.12.4"
+  }
+}
