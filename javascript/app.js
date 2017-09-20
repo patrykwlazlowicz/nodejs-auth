@@ -33,7 +33,14 @@ angularModule.config(['$locationProvider', '$routeProvider', '$httpProvider',
                 },
                 responseError: function (res) {
                     if (res.status === 401) {
-                        $location.url('/401');
+                        if(res.data.expired){
+                            $rootScope.token = null;
+                            $rootScope.username = null;
+                            localStorage.removeItem('auth-token');
+                            $location.url('/signin');
+                        } else {
+                            $location.url('/401');
+                        }
                     }
                     return $q.reject(res);
                 }
@@ -46,8 +53,6 @@ angularModule.run(['$rootScope', '$http',
         if (localStorage.getItem('auth-token') && !$rootScope.username) {
             return $http.post('/keepsession', {}).then((res) => {
                 $rootScope.username = res.data.username;
-            }, () => {
-                localStorage.removeItem('auth-token');
             });
         }
     }

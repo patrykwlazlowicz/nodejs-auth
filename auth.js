@@ -22,6 +22,7 @@ const SERVER_SECRET_KEY = 'BlueBrick';
 const TOKEN_EXPIRES_IN = '1h';
 const SIGNIN_VIA_MAIL_STRATEGY = 'signin-via-mail';
 const SESSION_VIA_MAIL_STRATEGY = 'session-via-mail';
+const EXPIRED_TOKEN_ERROR_NAME = 'TokenExpiredError';
 const PASSPORT_AUTHENTICATE_OPTIONS = {
     session: false
 };
@@ -61,12 +62,17 @@ module.exports.isSignedOut = (req, res, next) => {
 module.exports.isSignedIn = (req, res, next) => {
     return passport.authenticate(SESSION_VIA_MAIL_STRATEGY,
         PASSPORT_AUTHENTICATE_OPTIONS,
-        (err) => {
+        (err, user, authErr) => {
             if (!err && req.user) {
                 res.set('X-Access-Token', generateToken());
                 next();
             } else {
-                return res.status(401).end();
+                res.status(401);
+                if (authErr.name === EXPIRED_TOKEN_ERROR_NAME) {
+                    return res.json({expired: true});
+                } else {
+                    return res.end();
+                }
             }
         })(req, res, next);
 };
