@@ -1,33 +1,39 @@
 <!DOCTYPE html>
-<html lang="en">
+<html ng-app="nodeAuth">
 <head>
-    <meta charset="UTF-8">
     <title>Node auth</title>
-    <link rel="stylesheet" href="https://bootswatch.com/paper/bootstrap.min.css"/>
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js"/>
-    <script src="./javascript/app.js"></script>
+    <base href="/">
+    <meta charset="utf-8">
+    <meta name="fragment" content="!">
+    <link rel="stylesheet" href="/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="/css/font-awesome.min.css"/>
+    <script src="/javascript/lib/jquery-3.2.1.min.js"></script>
+    <script src="/javascript/lib/angular.min.js"></script>
+    <script src="/javascript/lib/angular-route.min.js"></script>
+    <script src="/javascript/app.js"></script>
 </head>
 <body>
 
 <div class="container">
 
-    <div class="row">
-        <div ng-view class="view-animate"></div>
+    <div class="form-group">
+        <div class="row">
+            <div class="col-lg-6 text-left">
+                <a href="/" class="btn btn-primary"><span class="fa fa-home"></span> Home</a>
+            </div>
+            <div class="col-lg-6 text-right">
+                <a href="/profile" class="btn btn-danger"><span class="fa fa-gear"></span> Local Profile</a>
+                <a href="/signin" class="btn btn-success"><span class="fa fa-user"></span> Sign in</a>
+            </div>
+        </div>
     </div>
 
-    <div class="container">
-        <div class="row">
-            <a href="/signin" class="btn btn-default"><span class="fa fa-user"></span> Home</a>
-        </div>
-        <div class="row">
-            <a href="/profile" class="btn btn-default"><span class="fa fa-gear"></span> Local Profile</a>
-        </div>
+    <div ng-view class="view-animate">
     </div>
 
-    <p id="user">{{currentUser}}</p>
+    <p id="user">{{username}}</p>
     <p id="token">{{token}}</p>
 
 </div>
-
 </body>
 </html>

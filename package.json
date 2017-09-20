@@ -4,7 +4,7 @@
   "description": "Example of node authentification using passport library",
   "main": "app.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "nodemon server.js"
   },
   "repository": {
     "type": "git",
@@ -17,7 +17,6 @@
   },
   "homepage": "https://github.com/patrykwlazlowicz/nodejs-auth#readme",
   "dependencies": {
-    "async": "^2.5.0",
     "body-parser": "^1.18.1",
     "express": "^4.15.4",
     "jsonwebtoken": "^8.0.1",
@@ -27,5 +26,8 @@
     "passport-local": "^1.0.0",
     "path": "^0.12.7",
     "serve-static": "^1.12.4"
+  },
+  "devDependencies": {
+    "nodemon": "^1.12.1"
   }
 }
