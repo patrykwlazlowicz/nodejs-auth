@@ -45,7 +45,6 @@ app.post('/keepsession', auth.isSignedIn, (req, res) => {
     res.json({username: req.user.username});
 });
 
-// TODO CMD + SHIFT + R
 app.get('/user/profile', auth.isSignedIn, (req, res) => {
     res.json({realName: req.user.realName});
 });
