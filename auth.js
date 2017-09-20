@@ -61,10 +61,9 @@ module.exports.isSignedOut = (req, res, next) => {
 module.exports.isSignedIn = (req, res, next) => {
     return passport.authenticate(SESSION_VIA_MAIL_STRATEGY,
         PASSPORT_AUTHENTICATE_OPTIONS,
-        (err, user) => {
-            if (!err && user) {
+        (err) => {
+            if (!err && req.user) {
                 res.set('X-Access-Token', generateToken());
-                req.user = user;
                 next();
             } else {
                 return res.status(401).end();
@@ -108,8 +107,11 @@ function createSessionStrategy() {
             jwtFromRequest: jwtExtractor.fromAuthHeaderAsBearerToken(),
             passReqToCallback: true
         },
-        (payload, done) => {
-            done(null, payload);
+        (req, payload, done) => {
+            if (payload) {
+                req.user = payload;
+            }
+            done(null);
         }
     ));
 }

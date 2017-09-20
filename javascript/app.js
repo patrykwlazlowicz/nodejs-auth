@@ -80,7 +80,7 @@ angularModule.controller('userController', ['$rootScope', '$scope', '$http', '$l
 ]);
 angularModule.controller('profileController', ['$scope', '$http',
     function ($scope, $http) {
-        $http.get('/profile', {}).then((res) => {
+        $http.get('/user/profile', {}).then((res) => {
             $scope.realName = res.data.realName;
         });
     }
