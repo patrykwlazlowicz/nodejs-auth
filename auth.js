@@ -117,7 +117,7 @@ function createSessionStrategy() {
             if (payload) {
                 req.user = payload;
             }
-            done(payload);
+            done(null, payload);
         }
     ));
 }

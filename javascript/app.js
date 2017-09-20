@@ -75,9 +75,8 @@ angularModule.controller('userController', ['$rootScope', '$scope', '$http', '$l
                         $location.path('/');
                     }
                 }, () => {
-                    $scope.signinForm.login = '';
-                    $scope.signinForm.password = '';
-                    $scope.formError = true;
+                    $scope.form.login = '';
+                    $scope.form.password = '';
                 });
             }
         };
