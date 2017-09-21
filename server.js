@@ -43,7 +43,6 @@ app.get('/user/profile', auth.isSignedIn, (req, res) => {
 });
 
 app.all('*', function (req, res) {
-    console.log(path.join(__dirname, './views/index.html'));
     return res.sendFile(path.join(__dirname, './views/index.html'));
 });
 
