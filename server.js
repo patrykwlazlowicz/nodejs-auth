@@ -7,13 +7,6 @@ const protocol = require('http');
 const serveStatic = require('serve-static');
 const util = require('util');
 
-// USER MODEL
-
-const USER_MODEL = {
-    USERNAME: 'heyhey',
-    PASSWORD: 'adecad1000',
-    REALNAME: 'Justyna Juszczak'
-};
 
 // EXPRESS STUFF
 
