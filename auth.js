@@ -7,8 +7,8 @@ const passportJwt = require('passport-jwt');
 
 const USER_MODEL = {
     USERNAME: 'heyhey',
-    PASSWORD: 'adecad1000',
-    REALNAME: 'Justyna Juszczak'
+    PASSWORD: '!QAZ2wsx',
+    REALNAME: 'Mariusz Dąbrowski'
 };
 
 // PASSPORT STUFF
@@ -18,7 +18,7 @@ const jwtExtractor = passportJwt.ExtractJwt;
 
 // AUTH CONFIG
 
-const SERVER_SECRET_KEY = 'BlueBrick';
+const SERVER_SECRET_KEY = 'SecretKey';
 const TOKEN_EXPIRES_IN = '1h';
 const SIGNIN_VIA_MAIL_STRATEGY = 'signin-via-mail';
 const SESSION_VIA_MAIL_STRATEGY = 'session-via-mail';
